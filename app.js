@@ -13,7 +13,7 @@ let apiRouter = require('./routes')
 db.connect(config.getConfig().dbConfig.finalUrl)
 
 app.use(bodyParser.json())
-app.use('/api',apiRouter)
+app.use('/user',apiRouter.userRouter)
 
 app.use('/',(_,res) => {
     res.json({msg:"hello"})

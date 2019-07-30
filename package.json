@@ -1,0 +1,24 @@
+{
+  "name": "kuans-requirements-management",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jason-lu/kuans-requirements-management.git"
+  },
+  "author": "Kuan Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jason-lu/kuans-requirements-management/issues"
+  },
+  "homepage": "https://github.com/jason-lu/kuans-requirements-management#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.7"
+  }
+}

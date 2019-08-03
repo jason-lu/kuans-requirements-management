@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 //config file
 const config = require('./config')
 const db = require('./db');
+//auth
+require('./controllers/auth')
 //routing
 let apiRouter = require('./routes')
 

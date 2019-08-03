@@ -3,10 +3,11 @@
 const express = require('express')
 const router = express.Router({mergeParams:true})
 const user = require('../controllers/userController')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const secret = require('../config/index').getConfig().salt
 
-
-
-router.post('/find',(req,res) => {
+router.get('/find',(req,res) => {
     let email = req.body.email;
     user.getUser(email,(err, user) => {
         if(err) res.status(503).json({msg:'Internal Server Error'})
@@ -28,6 +29,24 @@ router.post('/register',(req,res) => {
             return res.status(400).json({msg: 'User already exsits!'})
         }
     })
+})
+
+
+router.post('/login',(req,res,next) => {
+    passport.authenticate('local',{session:false}, (err, user, info) => {
+        if(err || !user) {
+            return res.status(403).json({
+                msg:"Incorrext username/password"
+            })
+        }
+        req.login(user, {session : false}, (err) => {
+            if(err){
+                return res.send(err)
+            }
+            const token = jwt.sign(user, secret);
+            return res.json({user, token});
+        })
+    })(req,res)
 })
 
 module.exports = {

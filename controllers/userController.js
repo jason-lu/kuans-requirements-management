@@ -30,7 +30,20 @@ function addUser(user,cb) {
     })
 }
 
+function verify(user,cb){
+    db.findOne({email:user.email}, (err, realUser) => {
+        if(err) return cb(err,null,null)
+        if(!realUser) return(null, {msg:"Incorrect email/password"},null)
+        brypt.compare(user.password, realUser.password, (err,res) => {
+            if(res) return cb(null,null, realUser)
+            let finalUser = (({id,email, userName, userGroup}) =>({id,email, userName, userGroup}))(realUser)
+            cb(null, null, finalUser)
+        })
+    })
+}
+
 module.exports = {
     getUser,
-    addUser
+    addUser,
+    verify
 }
